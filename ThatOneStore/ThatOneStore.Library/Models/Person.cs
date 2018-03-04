@@ -11,9 +11,9 @@ namespace ThatOneStore.Library.Models
     {
         [Key]
         [Column("PersonId")]
-        int PersonId { get; set; }
+        public int PersonId { get; set; }
 
         [Column("Name")]
-        string Name { get; set; }
+        public string Name { get; set; }
     }
 }

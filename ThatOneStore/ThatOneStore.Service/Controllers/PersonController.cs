@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ThatOneStore.Context;
+using ThatOneStore.Library.Models;
 
 namespace ThatOneStore.Service.Controllers
 {
@@ -11,6 +13,13 @@ namespace ThatOneStore.Service.Controllers
     [Route("api/Person")]
     public class PersonController : Controller
     {
+        private ThatOneStoreContext _db;
+
+        public PersonController(ThatOneStoreContext context)
+        {
+            _db = context;
+        }
+
         // GET: api/Person
         [HttpGet]
         public IEnumerable<string> Get()
@@ -27,8 +36,11 @@ namespace ThatOneStore.Service.Controllers
         
         // POST: api/Person
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Person value)
         {
+            _db.Peeps.Add(value);
+            _db.SaveChanges();
+            Ok();
         }
         
         // PUT: api/Person/5
